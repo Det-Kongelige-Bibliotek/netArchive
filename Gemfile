@@ -61,3 +61,8 @@ end
 
 gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
+
+gem "devise"
+gem "devise-guests"
+
+gem "blacklight-marc"

@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="408f86e3-5f87-4e76-87b0-e6d5ab5cf89c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/catalog/_home_text.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/catalog/_index_default.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/catalog/_show_default.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/catalog/show.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/initializers/load_config.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/catalog_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/catalog_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/solr_document.rb" afterPath="$PROJECT_DIR$/app/models/solr_document.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/netarkivet.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/helpers/blacklight_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/catalog/_index_default.html.erb" afterPath="$PROJECT_DIR$/app/views/catalog/_index_default.html.erb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -71,8 +63,8 @@
       <file leaf-file-name="_index_default.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/catalog/_index_default.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+            <state relative-caret-position="144">
+              <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
               <folding />
             </state>
           </provider>
@@ -98,8 +90,8 @@
         <option value="$PROJECT_DIR$/app/models/solr_document.rb" />
         <option value="$PROJECT_DIR$/app/views/catalog/show.html.erb" />
         <option value="$PROJECT_DIR$/app/views/catalog/_home_text.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/catalog/_index_default.html.erb" />
         <option value="$PROJECT_DIR$/app/views/catalog/_show_default.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/catalog/_index_default.html.erb" />
       </list>
     </option>
   </component>
@@ -345,7 +337,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3863000" />
+    <option name="totallyTimeSpent" value="3960000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="407" y="27" width="1221" height="833" extended-state="0" />
@@ -594,8 +586,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/catalog/_index_default.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        <state relative-caret-position="144">
+          <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
           <folding />
         </state>
       </provider>

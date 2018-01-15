@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  devise_for :users
   mount Blacklight::Engine => '/'
   root to: "catalog#index"
     concern :searchable, Blacklight::Routes::Searchable.new

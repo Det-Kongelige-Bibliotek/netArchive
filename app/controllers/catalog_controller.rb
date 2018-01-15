@@ -223,12 +223,7 @@ class CatalogController < ApplicationController
     # Remove all actions from the navbar
     config.navbar.partials = {}
 
-    # Disable login
-    def has_authentication_provider?
-      false
-    end
-
-    # get single document from the solr index
+     # get single document from the solr index
     def show
       # Decodes the id: '/' transformed from '&#47;'
       id = params[:id].gsub('&#47;', '/')

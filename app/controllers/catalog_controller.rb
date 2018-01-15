@@ -220,6 +220,14 @@ class CatalogController < ApplicationController
     config.add_sort_field 'content_type_norm asc', :label => 'content type (a-z)'
     config.add_sort_field 'content_type_norm desc', :label => 'content type (z-a)'
 
+    # Remove all actions from the navbar
+    config.navbar.partials = {}
+
+    # Disable login
+    def has_authentication_provider?
+      false
+    end
+
     # get single document from the solr index
     def show
       # Decodes the id: '/' transformed from '&#47;'
@@ -241,4 +249,5 @@ class CatalogController < ApplicationController
 ## NKH End
 
   end
+
 end

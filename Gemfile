@@ -62,7 +62,7 @@ end
 gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
 
-#NKH gem "devise"
-#NKH gem "devise-guests"
+gem "devise"
+gem "devise-guests"
 
 gem "blacklight-marc"

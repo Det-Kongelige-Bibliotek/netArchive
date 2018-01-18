@@ -1,13 +1,20 @@
 
-<div id="content" class="span12 show-document">
-  <%= render 'previous_next_doc' %>
-  <% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>
-  <% content_for(:head) { render_link_rel_alternates } -%>
-
-  <div id="document" class="document <%= render_document_class %>" itemscope itemtype="<%= @document.itemtype %>">
-    <div id="doc_<%= @document.id.to_s.parameterize %>">
-      <% # bookmark/folder functions -%>
-      <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
-    </div>
-  </div>
+<% if current_search_session %>
+<div id="appliedParams" class="clearfix constraints-container">
+  <%= link_to t('blacklight.search.start_over'), start_over_path, class: "catalog_startOverLink btn btn-primary" %>
+  <%= link_back_to_catalog class: 'btn btn-secondary' %>
 </div>
+<% end %>
+
+<%= render_document_main_content_partial %>
+
+<hr/>
+
+<% @document.instance_values['_source'].sort.each do |field_name, value| -%>
+    <!-- Do not show field: '_version_' -->
+    <dl class="dl-horizontal">
+    <% unless ['_version_'].include? field_name %>
+        <dt class="blacklight-<%= field_name.parameterize %>"><%= field_name %></dt>
+        <dd class="blacklight-<%= field_name.parameterize %>"><%= value %></dd>
+    <% end %></dl>
+<% end -%>

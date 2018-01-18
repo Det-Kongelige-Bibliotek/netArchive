@@ -140,10 +140,11 @@ class CatalogController < ApplicationController
     config.add_show_field 'crawl_date', :label => 'Crawl Date'
     config.add_show_field 'url', :label => 'Harvested URL'
 
-    config.add_show_field 'content_ffb', :label => 'content_ffb'
-    config.add_show_field 'content_first_bytes', :label => 'content_first_bytes'
-    config.add_show_field 'content_language', :label => 'content_language'
-    config.add_show_field 'content_text', :label => 'content_text'
+#    config.add_show_field 'author', :label =>'author'
+#    config.add_show_field 'content_ffb', :label => 'content_ffb'
+#    config.add_show_field 'content_first_bytes', :label => 'content_first_bytes'
+#    config.add_show_field 'content_language', :label => 'content_language'
+#    config.add_show_field 'content_text', :label => 'content_text'
     ## NKH End
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -196,6 +197,14 @@ class CatalogController < ApplicationController
       }
     end
 
+    config.add_search_field('text', :label => 'Text') do |field|
+      field.solr_parameters = { :'spellcheck.dictionary' => 'text' }
+      field.solr_local_parameters = {
+          :qf => 'title^5 content_text',
+          :pf => 'title^5 content_text'
+      }
+    end
+
     config.add_search_field('links', :label => 'Links') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'links' }
       field.solr_local_parameters = {
@@ -241,7 +250,7 @@ class CatalogController < ApplicationController
       respond_to do |format|
         format.html { @search_context = setup_next_and_previous_documents }
         format.json { render json: { response: { document: @document } } }
-        format.pdf {send_pdf(@document,'text')}
+
         additional_export_formats(@document, format)
       end
 

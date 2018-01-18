@@ -25,7 +25,7 @@ class CatalogController < ApplicationController
     #config.solr_path = 'select'
     #config.document_solr_path = 'get'
 
-    # items to show per page, each number in the array represent another option to choose from.
+    # items to my_show per page, each number in the array represent another option to choose from.
     config.per_page = [25,25,100,250]
 
     # solr field configuration for search results/index views
@@ -34,12 +34,12 @@ class CatalogController < ApplicationController
     #NKH config.index.display_type_field = 'format'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
-    # solr field configuration for document/show views
+    # solr field configuration for document/my_show views
     config.show.title_field = 'title'
     #Next line NKH
     config.show.domain_field= 'domain'
-    #config.show.display_type_field = 'format'
-    #config.show.thumbnail_field = 'thumbnail_path_ss'
+    #config.my_show.display_type_field = 'format'
+    #config.my_show.thumbnail_field = 'thumbnail_path_ss'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -58,13 +58,13 @@ class CatalogController < ApplicationController
     # sniffing requires solr requests to be made with "echoParams=all", for
     # app code to actually have it echo'd back to see it.
     #
-    # :show may be set to false if you don't want the facet to be drawn in the
+    # :my_show may be set to false if you don't want the facet to be drawn in the
     # facet bar
     #
     # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
-## NKH Start
+    ## NKH Start
     #config.add_facet_field 'format', label: 'Format'
     #config.add_facet_field 'pub_date', label: 'Publication Year', single: true
     #config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
@@ -94,7 +94,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-## NKH Start
+    ## NKH Start
     #config.add_index_field 'title_display', label: 'Title'
     #config.add_index_field 'title_vern_display', label: 'Title'
     #config.add_index_field 'author_display', label: 'Author'
@@ -104,16 +104,22 @@ class CatalogController < ApplicationController
     #config.add_index_field 'published_display', label: 'Published'
     #config.add_index_field 'published_vern_display', label: 'Published'
     #config.add_index_field 'lc_callnum_display', label: 'Call number'
-    config.add_index_field 'content_type_norm'
-    config.add_index_field 'crawl_date', :label => 'Crawl Date'
     config.add_index_field 'id', :label => 'Complete index', :helper_method => :get_id_show_link
-    config.add_index_field 'title'
+    config.add_index_field 'content_type', :label => 'Mime Type'
+    config.add_index_field 'content_type_served', :label => 'Full Content Type'
+    config.add_index_field 'crawl_date', :label => 'Crawl Date'
+    config.add_index_field 'content_text', :label => 'Content', :helper_method => :get_simple_context_text
+    config.add_index_field 'domain', :label => 'Domain'
+    config.add_index_field 'url', :label => 'Harvested URL', :helper_method => :get_url_link
+    #config.add_index_field 'crawl_date', :label => 'Crawl Date'
+    #config.add_index_field 'id', :label => 'Complete index', :helper_method => :get_id_show_link
+    #config.add_index_field 'title'
 
-## NKH End
+    ## NKH End
 
-    # solr fields to be displayed in the show (single result) view
+    # solr fields to be displayed in the my_show (single result) view
     #   The ordering of the field names is the order of the display
-## NKH Start
+    ## NKH Start
     #config.add_show_field 'title_display', label: 'Title'
     #config.add_show_field 'title_vern_display', label: 'Title'
     #config.add_show_field 'subtitle_display', label: 'Subtitle'
@@ -134,6 +140,11 @@ class CatalogController < ApplicationController
     config.add_show_field 'crawl_date', :label => 'Crawl Date'
     config.add_show_field 'url', :label => 'Harvested URL'
 
+#    config.add_show_field 'author', :label =>'author'
+#    config.add_show_field 'content_ffb', :label => 'content_ffb'
+#    config.add_show_field 'content_first_bytes', :label => 'content_first_bytes'
+#    config.add_show_field 'content_language', :label => 'content_language'
+#    config.add_show_field 'content_text', :label => 'content_text'
     ## NKH End
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -162,13 +173,13 @@ class CatalogController < ApplicationController
     # of Solr search fields.
 
 
-## NKH Start
+    ## NKH Start
     #config.add_search_field('title') do |field|
-      # solr_parameters hash are sent to Solr as ordinary url query params.
-      #field.solr_parameters = {
-      #  'spellcheck.dictionary': 'title',
-      #  qf: '${title_qf}',
-      #  pf: '${title_pf}'
+    # solr_parameters hash are sent to Solr as ordinary url query params.
+    #field.solr_parameters = {
+    #  'spellcheck.dictionary': 'title',
+    #  qf: '${title_qf}',
+    #  pf: '${title_pf}'
     config.add_search_field 'all_fields', :label => 'All Fields' do |field|
       field.solr_local_parameters = {
           :qf => 'title^100 content_text^10 url^3 text domain',
@@ -176,13 +187,21 @@ class CatalogController < ApplicationController
 ## NKH End
       }
     end
-## NKH Start
+    ## NKH Start
 
     config.add_search_field('url', :label => 'URL/domain') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'url' }
       field.solr_local_parameters = {
           :qf => 'url^2 domain',
           :pf => 'url^2 domain'
+      }
+    end
+
+    config.add_search_field('text', :label => 'Text') do |field|
+      field.solr_parameters = { :'spellcheck.dictionary' => 'text' }
+      field.solr_local_parameters = {
+          :qf => 'title^5 content_text',
+          :pf => 'title^5 content_text'
       }
     end
 
@@ -223,22 +242,33 @@ class CatalogController < ApplicationController
     # Remove all actions from the navbar
     config.navbar.partials = {}
 
-     # get single document from the solr index
+    # get single document from the solr index
     def show
-      # Decodes the id: '/' transformed from '&#47;'
-      id = params[:id].gsub('&#47;', '/')
-      @response, @document = get_solr_response_for_doc_id id, {:q => "id:#{id}"}
+      deprecated_response, @document = search_service.fetch(params[:id])
+      @response = ActiveSupport::Deprecation::DeprecatedObjectProxy.new(deprecated_response, 'The @response instance variable is deprecated; use @document.response instead.')
+
       respond_to do |format|
-        format.html {setup_next_and_previous_documents}
-        format.json { render json: {response: {document: @document}}}
-        # Add all dynamically added (such as by document extensions)
-        # export formats.
-        @document.export_formats.each_key do | format_name |
-          # It's important that the argument to send be a symbol;
-          # if it's a string, it makes Rails unhappy for unclear reasons.
-          format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
-        end
+        format.html { @search_context = setup_next_and_previous_documents }
+        format.json { render json: { response: { document: @document } } }
+
+        additional_export_formats(@document, format)
       end
+
+
+      # # Decodes the id: '/' transformed from '&#47;'
+      # id = params[:id]   #.gsub('&#47;', '/')
+      # @response, @document = get_solr_response_for_doc_id id, {:q => "id:#{id}"}
+      # respond_to do |format|
+      #   format.html {setup_next_and_previous_documents}
+      #   format.json { render json: {response: {document: @document}}}
+      #   # Add all dynamically added (such as by document extensions)
+      #   # export formats.
+      #   @document.export_formats.each_key do | format_name |
+      #     # It's important that the argument to send be a symbol;
+      #     # if it's a string, it makes Rails unhappy for unclear reasons.
+      #     format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
+      #   end
+      # end
     end
 
 ## NKH End

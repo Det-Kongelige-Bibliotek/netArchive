@@ -18,6 +18,3 @@
 /.idea
 .keep
 
-# Ignore Other Files
-/config/blacklight.yml
-/config/wayback.yml

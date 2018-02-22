@@ -11,7 +11,6 @@ RUN rails db:migrate RAILS_ENV=development
 COPY . /netarkiv-app
 
 RUN chgrp -R 0 /netarkiv-app && \
-    chmod -R g=u /netarkive-app
+    chmod -R g=u /netarkiv-app
 
-
-CMD rails s -b 0.0.0.0
+CMD bundle exec rails s -p 3000 -b '0.0.0.0'

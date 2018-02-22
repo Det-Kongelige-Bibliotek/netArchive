@@ -150,7 +150,8 @@ class CatalogController < ApplicationController
 
     # get single document from the solr index
     def show
-      deprecated_response, @document = search_service.fetch(params[:id])
+      #NKH deprecated_response, @document = search_service.fetch(params[:id])
+      deprecated_response, @document = search_service.fetch(params[:id] .gsub('&#47;', '/'))
       @response = ActiveSupport::Deprecation::DeprecatedObjectProxy.new(deprecated_response, 'The @response instance variable is deprecated; use @document.response instead.')
 
       respond_to do |format|

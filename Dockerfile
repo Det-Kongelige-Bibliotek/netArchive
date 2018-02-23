@@ -7,7 +7,9 @@ WORKDIR /netarkiv-app
 COPY Gemfile /netarkiv-app/Gemfile
 COPY Gemfile.lock /netarkiv-app/Gemfile.lock
 RUN bundle install
+RUN rails generate blacklight:install
 RUN rails db:migrate RAILS_ENV=development  
+
 COPY . /netarkiv-app
 
 RUN chgrp -R 0 /netarkiv-app && \

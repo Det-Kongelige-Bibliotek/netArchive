@@ -12,7 +12,7 @@ parameters:
 - description: Git source URI for application
   name: SOURCE_URL
   required: true
-  value: https://github.com/det-kgl-bibliotek/testOpenShift
+  value: https://github.com/Det-Kongelige-Bibliotek/netArchive
 - description: Git branch/tag reference
   name: SOURCE_REF
   value: master
@@ -62,6 +62,7 @@ objects:
         COPY Gemfile Gemfile.lock /${APPLICATION_NAME}/
         RUN bundle install
         COPY . /${APPLICATION_NAME}
+        RUN rails db:migrate RAILS_ENV=development
         RUN chgrp -R 0 /${APPLICATION_NAME} && \
             chmod -R g=u /${APPLICATION_NAME}
         EXPOSE 3000

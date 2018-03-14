@@ -150,10 +150,17 @@ class CatalogController < ApplicationController
 
     # get single document from the solr index
     def show
-      #NKH deprecated_response, @document = search_service.fetch(params[:id])
-      id = params[:id].gsub('&47', '/')
-      deprecated_response, @document = search_service.fetch(id)
-      @response = ActiveSupport::Deprecation::DeprecatedObjectProxy.new(deprecated_response, 'The @response instance variable is deprecated; use @document.response instead.')
+      id = params[:id].gsub('&47','/')
+
+      # Use search_service to fetch a document, since netarkivet solr
+      # does not support get
+      deprecated_response, documents = search_service.search_results do |builder|
+        builder = {:q => "id:#{id}"}
+      end
+
+      @document = documents.first
+
+      raise ActionController::RoutingError, 'Not Found' if @document.nil?
 
       respond_to do |format|
         format.html { @search_context = setup_next_and_previous_documents }

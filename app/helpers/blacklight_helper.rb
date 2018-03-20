@@ -45,7 +45,11 @@ module BlacklightHelper
     |exp|
       key = exp.gsub(/[\[\]]/, '')
       value = doc[key]
-      value = CGI::escape(value)
+      if value.is_a? String
+        value = CGI::escape(value)
+      else
+        value = value.to_s
+      end
       resURL = resURL.gsub('['+key+']', value)
     end
 

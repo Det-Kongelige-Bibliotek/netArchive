@@ -92,6 +92,7 @@ class CatalogController < ApplicationController
 
     config.add_search_field 'all_fields', :label => 'All Fields' do |field|
       field.solr_local_parameters = {
+          :type => 'edismax',
           :qf => 'title^100 text^10 url^3 text domain',
           :pf => 'title^100 text^10 url^3 text domain'
       }
@@ -100,6 +101,7 @@ class CatalogController < ApplicationController
     config.add_search_field('url', :label => 'URL/domain') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'url' }
       field.solr_local_parameters = {
+          :type => 'edismax',
           :qf => 'url^2 domain',
           :pf => 'url^2 domain'
       }
@@ -108,6 +110,7 @@ class CatalogController < ApplicationController
     config.add_search_field('text', :label => 'Text') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'text' }
       field.solr_local_parameters = {
+          :type => 'edismax',
           :qf => 'title^5 text',
           :pf => 'title^5 text'
       }
@@ -116,6 +119,7 @@ class CatalogController < ApplicationController
     config.add_search_field('links', :label => 'Links') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'links' }
       field.solr_local_parameters = {
+          :type => 'edismax',
           :qf => 'links_hosts links_domains',
           :pf => 'links_hosts links_domains'
       }

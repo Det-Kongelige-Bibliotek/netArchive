@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def get_simple_context_text args
+  def get_simple_text args
     text = args[:document][args[:field]].first
     if text
       text = text[0..255] + '...' unless text.length < 255

@@ -52,7 +52,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'content_type', :label => 'Mime Type'
     config.add_index_field 'content_type_served', :label => 'Full Content Type'
     config.add_index_field 'crawl_date', :label => 'Crawl Date'
-    config.add_index_field 'content_text', :label => 'Content', :helper_method => :get_simple_context_text
+    config.add_index_field 'text', :label => 'Content', :helper_method => :get_simple_text
     config.add_index_field 'domain', :label => 'Domain'
     config.add_index_field 'url', :label => 'Harvested URL', :helper_method => :get_url_link
 
@@ -92,8 +92,8 @@ class CatalogController < ApplicationController
 
     config.add_search_field 'all_fields', :label => 'All Fields' do |field|
       field.solr_local_parameters = {
-          :qf => 'title^100 content_text^10 url^3 text domain',
-          :pf => 'title^100 content_text^10 url^3 text domain'
+          :qf => 'title^100 text^10 url^3 text domain',
+          :pf => 'title^100 text^10 url^3 text domain'
       }
     end
 
@@ -108,8 +108,8 @@ class CatalogController < ApplicationController
     config.add_search_field('text', :label => 'Text') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'text' }
       field.solr_local_parameters = {
-          :qf => 'title^5 content_text',
-          :pf => 'title^5 content_text'
+          :qf => 'title^5 text',
+          :pf => 'title^5 text'
       }
     end
 

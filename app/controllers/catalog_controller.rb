@@ -35,7 +35,7 @@ class CatalogController < ApplicationController
     config.show.title_field = 'title'
     config.show.domain_field= 'domain'
 
-    config.add_facet_field 'crawl_year', :label => 'Crawl Year', :single => true, sort: 'index', solr_params: { 'facet.mincount' => 1 }
+    config.add_facet_field 'crawl_year', :label => 'Crawl Year', :single => true, :limit => 100, sort: 'index', solr_params: { 'facet.mincount' => 1 }
     config.add_facet_field 'domain', :label => 'Domain', :single => true, :limit => 10, solr_params: { 'facet.mincount' => 1 }
     config.add_facet_field 'content_type_norm', :label => 'Content Type', :single => true, :limit => 10, solr_params: { 'facet.mincount' => 1 }
     config.add_facet_field 'public_suffix', :label => 'Public Suffix', :single => true, :limit => 10, solr_params: { 'facet.mincount' => 1 }

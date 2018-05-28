@@ -16,6 +16,7 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
+        :fq => ['record_type:response OR record_type:arc'],
         :qt => 'search',
         :rows => 25,
         :defType => 'edismax',
@@ -93,8 +94,8 @@ class CatalogController < ApplicationController
     config.add_search_field 'all_fields', :label => 'All Fields' do |field|
       field.solr_local_parameters = {
           :type => 'edismax',
-          :qf => 'title^100 text^10 url^3 text domain',
-          :pf => 'title^100 text^10 url^3 text domain'
+          :qf => 'text author^5.0 title^2.0 description^2.0 url_search^0.5',
+          :pf => 'text author^5.0 title^2.0 description^2.0 url_search^0.5'
       }
     end
 
